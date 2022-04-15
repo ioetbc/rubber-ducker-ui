@@ -16,6 +16,7 @@
   ul {
     list-style: none;
     padding-left: 0;
+    flex: 1;
   }
   .avatar-wrapper {
     display: flex;

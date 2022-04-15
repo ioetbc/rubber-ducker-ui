@@ -2,29 +2,11 @@
   import type { Message } from "../../types";
   import Avatar from "./Avatar.svelte";
 
-  export let messages: any[];
-  export let handlePageSelection: any;
-
-  // const handleTeacher = (selectedTeacher: User) => {
-  //   handleUserSelection(selectedTeacher);
-  //   handlePageSelection("teacher");
-  // };
+  export let messages: Message[];
 </script>
 
 <div class="container">
-  {#each messages as message}
-    <div class="pill">
-      <img
-        class="avatar"
-        src="https://robohash.org/quasenimexplicabo.png?size=50x50&set=set1"
-        alt={`${message.github_id} avatar`}
-      />
-      <div class="content">
-        <p class="username">{message.github_id}</p>
-        <p class="intro">{message.text}</p>
-      </div>
-    </div>
-  {/each}
+  <Avatar {user} {handleTeacher} />
 </div>
 
 <style>

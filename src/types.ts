@@ -58,3 +58,10 @@ export type Message = {
   intro: string;
   avatar: string;
 };
+
+export type Review = {
+  message: string;
+  stars: ReviewStarRating;
+};
+
+export type ReviewStarRating = 0 | 1 | 2 | 3 | 4 | 5;

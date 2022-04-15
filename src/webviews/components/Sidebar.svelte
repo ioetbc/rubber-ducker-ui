@@ -3,18 +3,15 @@
   import type { User, Page } from "../../types";
   import { isEmpty } from "lodash";
 
-  import Avatar from "./Avatar.svelte";
   import FindTeacher from "./FindTeacher.svelte";
   import Profile from "./Profile.svelte";
   import Teacher from "./Teacher.svelte";
-  import ActiveUsers from "./ActiveUsers.svelte";
 
   let todos: Array<{ text: string; completed: boolean }> = [];
   let user: User | null = null;
   let teacher: User | null = null;
   let accessToken: string = "";
   let page: Page = tsvscode.getState()?.page || "homepage";
-  let room: string = "";
   $: tsvscode.setState({ page });
 
   onMount(async () => {
@@ -27,17 +24,13 @@
           break;
         case "token":
           accessToken = message.value;
-          console.log("the access token", message.value);
-          const response = await fetch(`${apiBaseUrl}/me`, {
+          const response = await fetch(`${apiBaseUrl}/checkUserLoggedIn`, {
             headers: {
               authorization: `Bearer ${accessToken}`,
             },
           });
-
-          console.log("response", response);
           const data = await response.json();
           user = data.user;
-          console.log("the fucking user", user);
           break;
       }
     });
@@ -48,7 +41,7 @@
     page = newPage;
   };
 
-  const handleTeacherSelection = (selectedTeacher: User) => {
+  const handleUserSelection = (selectedTeacher: User) => {
     teacher = selectedTeacher;
   };
 </script>
@@ -60,11 +53,11 @@
     }}>login with github</button
   >
 {:else if page === "homepage" && user}
-  <FindTeacher {handlePageSelection} {handleTeacherSelection} {accessToken} />
+  <FindTeacher {handlePageSelection} {handleUserSelection} {accessToken} />
 {:else if page === "profile" && user}
   <Profile {user} {accessToken} />
 {:else if page === "teacher" && user && teacher}
-  <Teacher {teacher} {user} {accessToken} />
+  <Teacher {teacher} {accessToken} />
 {/if}
 
 <div style="position: fixed; bottom: 16px">

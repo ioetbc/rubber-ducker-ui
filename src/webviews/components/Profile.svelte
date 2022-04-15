@@ -80,7 +80,7 @@
   const handleFormSubmit = async (event: any) => {
     event.preventDefault();
     console.log("puting om");
-    const response = await fetch(`${apiBaseUrl}/updateProfile`, {
+    const response = await fetch(`${apiBaseUrl}/ammendProfile`, {
       method: "PUT",
       body: JSON.stringify(payload),
       headers: {

@@ -3,7 +3,6 @@
 
   import type { User } from "../../types";
 
-  export let accessToken: string;
   export let users: User[];
   export let handleTeacher: any;
 
@@ -31,9 +30,8 @@
   .scrolling-container {
     background: red;
     display: flex;
-    align-items: center;
     flex-wrap: wrap;
-    gap: 24px;
+    gap: 12px;
     width: 100%;
     padding: 24px 24px 12px 24px;
     overflow-y: scroll;
