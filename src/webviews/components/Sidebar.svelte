@@ -6,6 +6,7 @@
   import FindTeacher from "./FindTeacher.svelte";
   import Profile from "./Profile.svelte";
   import Teacher from "./Teacher.svelte";
+  import InvoiceScreen from "./screens/InvoiceScreen.svelte";
 
   let todos: Array<{ text: string; completed: boolean }> = [];
   let user: User | null = null;
@@ -58,12 +59,14 @@
   <Profile {user} {accessToken} />
 {:else if page === "teacher" && user && teacher}
   <Teacher {teacher} {accessToken} />
+{:else if page === "invoice" && user}
+  <InvoiceScreen amount={23.58} owedTo="ioetbc" perHourRate={50} time={23.57} />
 {/if}
 
 <div style="position: fixed; bottom: 16px">
-  <button on:click={() => handlePageSelection("profile")}>update profile</button
-  >
-  <button on:click={() => handlePageSelection("homepage")}>find teacher</button>
+  <button on:click={() => handlePageSelection("homepage")}>home</button>
+  <button on:click={() => handlePageSelection("profile")}>profile</button>
+  <button on:click={() => handlePageSelection("invoice")}>invoice</button>
 
   <button
     on:click={() => {

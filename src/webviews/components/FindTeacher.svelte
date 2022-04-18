@@ -16,7 +16,7 @@
   import Messages from "./Messages.svelte";
   import TechnologyFilter from "./TechnologFilter.svelte";
   import AdvancedFiltering from "./AdvancedFiltering.svelte";
-  import Pill from "./Pill.svelte";
+  import Pill from "./ui/Pill.svelte";
   import { getFilteredTeachers } from "../utils/filterTeacher/getFilteredTeachers";
 
   export let accessToken: string;
@@ -122,10 +122,10 @@
 {#if advancedSearch}
   <AdvancedFiltering
     {teacherFilters}
+    {advancedSearch}
     {handleProficiencyInput}
     {handleMinStarRating}
     {handleTeacherMaxPrice}
-    {advancedSearch}
   />
 {/if}
 {#each teacherFilters.technologies as technology}

@@ -1,6 +1,8 @@
 <script lang="ts">
   import type { User } from "../../types";
+  import Button from "./ui/Button.svelte";
   import yn from "yn";
+  import Selectinput from "./ui/SelectInput.svelte";
 
   export let user: User;
   export let accessToken: string;
@@ -188,80 +190,51 @@
 
   {#if yn(payload.teacher)}
     <div class="input-wrapper">
-      <label for="per-hour-rate">what is your per hour rate</label>
-      <p>amount people will pay you per hour to get help with their projects</p>
-
-      <select
-        name="per-hour-rate"
+      <Selectinput
+        label="what is your per hour rate?"
         id="per-hour-rate"
-        on:input={handlePerHourRate}
-      >
-        <option value="0">0</option>
-        <option value="10">10</option>
-        <option value="20">20</option>
-        <option value="30">30</option>
-        <option value="40">40</option>
-        <option value="50">50</option>
-        <option value="60">60</option>
-        <option value="70">70</option>
-        <option value="80">80</option>
-        <option value="90">90</option>
-        <option value="100">100</option>
-        <option value="110">110</option>
-        <option value="120">120</option>
-        <option value="130">130</option>
-        <option value="140">140</option>
-        <option value="150">150</option>
-        <option value="160">160</option>
-        <option value="170">170</option>
-        <option value="180">180</option>
-        <option value="190">190</option>
-        <option value="200">200</option>
-      </select>
+        handler={handleTechnology}
+        values={[
+          1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150,
+          160, 170, 180, 190, 200,
+        ]}
+      />
     </div>
 
     <div class="input-wrapper">
-      <label for="technologies">what technologies do you know?</label>
-      <p>anything from html to dyanmodb (the more niche the better)</p>
-      <select name="technologies" id="technologies" on:input={handleTechnology}>
-        <option value="javascript">javascript</option>
-        <option value="html">html</option>
-        <option value="css">css</option>
-        <option value="node">node</option>
-        <option value="python">python</option>
-        <option value="react">react</option>
-        <option value="svelte">svelte</option>
-        <option value="postgres">postgres</option>
-        <option value="dynamo_db">dynamo_db</option>
-        <option value="tensorflow">tensorflow</option>
-      </select>
+      <Selectinput
+        label="what technologies do you know? (the more niche the better)"
+        id="technologies"
+        handler={handleTechnology}
+        values={[
+          "javascript",
+          "html",
+          "css",
+          "node",
+          "python",
+          "react",
+          "svelte",
+          "postgres",
+          "dynamo_db",
+          "tensorflow",
+        ]}
+      />
     </div>
     <ul>
       {#each technolgiesSelected as technology}
         <div class="flex">
           <p>for each technology rate how proficient you are</p>
           <li>{technology}</li>
-          <select
-            name="proficiency"
+          <Selectinput
             id="technology-proficiency"
-            on:input={() => handleTechnologyProficiency(technology)}
-          >
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-          </select>
+            handler={() => handleTechnologyProficiency(technology)}
+            values={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
+          />
         </div>
       {/each}
     </ul>
   {/if}
-  <button type="submit">submit changes</button>
+  <Button type="submit" text="submit changes" />
 </form>
 
 <style>
