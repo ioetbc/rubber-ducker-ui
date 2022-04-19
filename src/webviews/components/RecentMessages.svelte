@@ -1,26 +1,20 @@
 <script lang="ts">
   import type { Message } from "../../types";
-  import Avatar from "./Avatar.svelte";
 
   export let messages: any[];
-  export let handlePageSelection: any;
-
-  // const handleTeacher = (selectedTeacher: User) => {
-  //   handleUserSelection(selectedTeacher);
-  //   handlePageSelection("teacher");
-  // };
+  export let handleNewScreen: any;
 </script>
 
 <div class="container">
   {#each messages as message}
-    <div class="pill">
+    <div class="pill" on:click={() => handleNewScreen(message, "messages")}>
       <img
         class="avatar"
-        src="https://robohash.org/quasenimexplicabo.png?size=50x50&set=set1"
-        alt={`${message.github_id} avatar`}
+        src={message.avatar_url}
+        alt={`${message.username} avatar`}
       />
       <div class="content">
-        <p class="username">{message.github_id}</p>
+        <p class="username">{message.username}</p>
         <p class="intro">{message.text}</p>
       </div>
     </div>

@@ -1,18 +1,19 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import type { User, Page } from "../../types";
+  import type { User, Screens } from "../../types";
   import { isEmpty } from "lodash";
 
   import FindTeacher from "./FindTeacher.svelte";
   import Profile from "./Profile.svelte";
   import Teacher from "./Teacher.svelte";
   import InvoiceScreen from "./screens/InvoiceScreen.svelte";
+  import MessageScreen from "./screens/MessageScreen.svelte";
 
   let todos: Array<{ text: string; completed: boolean }> = [];
   let user: User | null = null;
   let teacher: User | null = null;
   let accessToken: string = "";
-  let page: Page = tsvscode.getState()?.page || "homepage";
+  let page: Screens = tsvscode.getState()?.page || "homepage";
   $: tsvscode.setState({ page });
 
   onMount(async () => {
@@ -38,7 +39,7 @@
     tsvscode.postMessage({ type: "getToken", value: undefined });
   });
 
-  const handlePageSelection = (newPage: Page) => {
+  const handlePageSelection = (newPage: Screens) => {
     page = newPage;
   };
 
@@ -61,6 +62,8 @@
   <Teacher {teacher} {accessToken} />
 {:else if page === "invoice" && user}
   <InvoiceScreen amount={23.58} owedTo="ioetbc" perHourRate={50} time={23.57} />
+{:else if page === "messages" && user && teacher}
+  <MessageScreen {accessToken} {teacher} {user} />
 {/if}
 
 <div style="position: fixed; bottom: 16px">

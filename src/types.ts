@@ -23,7 +23,13 @@ export type User = {
   dynamo_db: number;
 };
 
-export type Page = "profile" | "contact" | "homepage" | "teacher" | "invoice";
+export type Screens =
+  | "profile"
+  | "contact"
+  | "homepage"
+  | "teacher"
+  | "invoice"
+  | "messages";
 
 export type TechnologyFilter = {
   type: TechnologyTypes;

@@ -2,7 +2,7 @@
   import { onMount } from "svelte";
   import type {
     User,
-    Page,
+    Screens,
     TechnologyTypes,
     TeacherFilters,
     Message,
@@ -13,14 +13,14 @@
     handleTechnologyProficiency,
   } from "../utils/filterTeacher/index";
   import ActiveUsers from "./ActiveUsers.svelte";
-  import Messages from "./Messages.svelte";
+  import RecentMessages from "./RecentMessages.svelte";
   import TechnologyFilter from "./TechnologFilter.svelte";
   import AdvancedFiltering from "./AdvancedFiltering.svelte";
   import Pill from "./ui/Pill.svelte";
   import { getFilteredTeachers } from "../utils/filterTeacher/getFilteredTeachers";
 
   export let accessToken: string;
-  export let handlePageSelection: (arg0: Page) => void;
+  export let handlePageSelection: (arg0: Screens) => void;
   export let handleUserSelection: (arg0: User) => void;
 
   let teacherFilters: TeacherFilters = {
@@ -34,7 +34,7 @@
 
   onMount(async () => {
     getAllUsers();
-    getAllMessages();
+    getMessagePreviews();
   });
 
   const getAllUsers = async () => {
@@ -47,9 +47,9 @@
     ).json();
   };
 
-  const getAllMessages = async () => {
+  const getMessagePreviews = async () => {
     messages = await (
-      await fetch(`${apiBaseUrl}/getAllMessages`, {
+      await fetch(`${apiBaseUrl}/getMessagePreviews`, {
         headers: {
           authorization: `Bearer ${accessToken} `,
         },
@@ -70,9 +70,9 @@
     handleFormChange();
   };
 
-  const handleTeacher = (selectedTeacher: User) => {
-    handleUserSelection(selectedTeacher);
-    handlePageSelection("teacher");
+  const handleNewScreen = (user: User, screen: Screens) => {
+    handleUserSelection(user);
+    handlePageSelection(screen);
   };
 
   const handleMinStarRating = () => {
@@ -132,8 +132,8 @@
   <Pill label={technology.type} {removeTechnologyType} />
 {/each}
 
-<ActiveUsers {users} {handleTeacher} />
-<Messages {handlePageSelection} {messages} />
+<ActiveUsers {users} {handleNewScreen} />
+<RecentMessages {handleNewScreen} {messages} />
 
 <style>
   .advanced-search {

@@ -4,7 +4,7 @@
   import type { User } from "../../types";
 
   export let users: User[];
-  export let handleTeacher: any;
+  export let handleNewScreen: any;
 
   let expandContainer = false;
 </script>
@@ -14,7 +14,7 @@
   style={`height: ${expandContainer ? "100%" : "332px"}`}
 >
   {#each users as user}
-    <Avatar {user} {handleTeacher} />
+    <Avatar {user} {handleNewScreen} />
   {/each}
 </div>
 <div class="expand-button-container">

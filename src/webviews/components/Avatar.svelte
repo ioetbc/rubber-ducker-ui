@@ -2,11 +2,11 @@
   import type { User } from "../../types";
 
   export let user: User;
-  export let handleTeacher: any;
+  export let handleNewScreen: any;
 </script>
 
 <ul>
-  <li class="avatar-wrapper" on:click={() => handleTeacher(user)}>
+  <li class="avatar-wrapper" on:click={() => handleNewScreen(user, "teacher")}>
     <img class="avatar-image" src={user?.avatar_url} alt="profile avatar" />
     <p class="username">{user?.username}</p>
   </li>
